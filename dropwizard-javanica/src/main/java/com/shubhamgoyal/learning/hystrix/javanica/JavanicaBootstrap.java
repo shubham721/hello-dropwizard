@@ -1,5 +1,7 @@
 package com.shubhamgoyal.learning.hystrix.javanica;
 
+import com.netflix.hystrix.contrib.javanica.aop.AopType;
+import com.netflix.hystrix.contrib.javanica.aop.WeavingMode;
 import com.shubhamgoyal.learning.hystrix.javanica.config.HystrixJavanicaConfiguration;
 import com.shubhamgoyal.learning.hystrix.javanica.guice.HystrixJavanicaGuiceModule;
 import com.shubhamgoyal.learning.hystrix.javanica.resources.HelloWorldResource;
@@ -11,6 +13,8 @@ public class JavanicaBootstrap extends Application<HystrixJavanicaConfiguration>
 
     @Override
     public void run(HystrixJavanicaConfiguration configuration, Environment environment) throws Exception {
+        System.setProperty("aopType", AopType.GUICE.name());
+        System.setProperty("weavingMode", WeavingMode.RUNTIME.name());
         DI.install(new HystrixJavanicaGuiceModule(configuration));
         environment.jersey().register(getHelloWorldResource());
     }

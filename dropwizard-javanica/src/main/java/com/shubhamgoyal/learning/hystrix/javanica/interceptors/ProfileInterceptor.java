@@ -9,6 +9,6 @@ public class ProfileInterceptor implements MethodInterceptor {
     public Object invoke(MethodInvocation invocation) throws Throwable {
         Object response = invocation.proceed();
         System.out.println("invoked" + invocation.getMethod().getName());
-        return 3;
+        return response;
     }
 }
