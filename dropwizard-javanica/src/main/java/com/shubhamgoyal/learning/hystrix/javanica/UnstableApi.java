@@ -22,6 +22,7 @@ public class UnstableApi {
         this.properties = properties;
     }
 
+    // checking how interceptors work
     @Profile
     public int call(String param) throws InterruptedException {
 //        Thread.sleep(2000);
@@ -35,7 +36,7 @@ public class UnstableApi {
             @SneakyThrows
             @Override
             public Integer invoke() {
-                Thread.sleep(100);
+                Thread.sleep(110);
                 return param.length();
             }
         };
@@ -48,7 +49,7 @@ public class UnstableApi {
             @SneakyThrows
             @Override
             public Integer invoke() {
-                Thread.sleep(100);
+                Thread.sleep(110);
                 return param.length();
             }
         };
