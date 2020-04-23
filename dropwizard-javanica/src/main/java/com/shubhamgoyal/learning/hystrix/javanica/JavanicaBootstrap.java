@@ -11,7 +11,7 @@ public class JavanicaBootstrap extends Application<HystrixJavanicaConfiguration>
 
     @Override
     public void run(HystrixJavanicaConfiguration configuration, Environment environment) throws Exception {
-        DI.install(new HystrixJavanicaGuiceModule());
+        DI.install(new HystrixJavanicaGuiceModule(configuration));
         environment.jersey().register(getHelloWorldResource());
     }
 

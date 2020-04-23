@@ -1,5 +1,6 @@
 template: Hello, %s!
 defaultName: Stranger
+hystrixConfig: /Users/shubham.goyal/repos/hello-dropwizard/dropwizard-javanica/src/main/resources/hystrix.properties
 server:
   applicationConnectors:
     - type: http

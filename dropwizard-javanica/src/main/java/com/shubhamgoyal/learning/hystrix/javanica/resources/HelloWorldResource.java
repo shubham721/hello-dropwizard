@@ -33,7 +33,7 @@ public class HelloWorldResource {
     @Timed
     public Saying2 sayHello1(@QueryParam("name") Optional<String> name) throws InterruptedException, JsonProcessingException {
         int temp = api.call(name.get());
-        api.call2(name.get());
+        Integer p = api.call2(name.get());
         Saying2 x = new Saying2(temp);
         return x;
     }

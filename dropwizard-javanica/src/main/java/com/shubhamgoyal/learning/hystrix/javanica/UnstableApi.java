@@ -1,13 +1,19 @@
 package com.shubhamgoyal.learning.hystrix.javanica;
 
+import com.google.inject.Inject;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.shubhamgoyal.learning.hystrix.javanica.annotations.Profile;
 
+import java.util.Properties;
+
 public class UnstableApi {
 
-    public UnstableApi(){
+    private Properties properties;
 
+    @Inject
+    public UnstableApi(Properties properties){
+        this.properties = properties;
     }
 
     @Profile
@@ -16,12 +22,13 @@ public class UnstableApi {
         return param.length();
     }
 
-    @HystrixCommand(
-            threadPoolProperties = {
-                    @HystrixProperty(name = "coreSize", value = "30"),
-                    @HystrixProperty(name = "maxQueueSize", value = "101"),
-                    @HystrixProperty(name = "keepAliveTimeMinutes", value = "2")})
-    public  Integer call2(String param) throws InterruptedException{
+    @HystrixCommand(commandKey = "simple-command", groupKey = "simple-command")
+    public  Integer call2(String param) {
         return param.length();
+    }
+
+
+    private Integer fallback(String param) {
+        return 5;
     }
 }

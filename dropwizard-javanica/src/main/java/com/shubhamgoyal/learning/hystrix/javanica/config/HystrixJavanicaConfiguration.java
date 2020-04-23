@@ -8,6 +8,16 @@ public class HystrixJavanicaConfiguration extends Configuration {
 
     private String defaultName = "Stranger";
 
+    private String hystrixConfig = "";
+
+    public String getHystrixConfig() {
+        return hystrixConfig;
+    }
+
+    public void setHystrixConfig(String hystrixConfig) {
+        this.hystrixConfig = hystrixConfig;
+    }
+
     @JsonProperty
     public String getTemplate() {
         return template;
