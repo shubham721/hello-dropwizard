@@ -1,0 +1,78 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 10090
+  adminConnectors:
+    - type: http
+      port: 10091
+
+  requestLog:
+    appenders:
+      - type: file
+        currentLogFilename: /var/log/flipkart/hello-world/request.log
+        archivedLogFilenamePattern: /var/log/flipkart/hello-world/request-%d.log.gz
+        timeZone: IST
+
+logging:
+  level: INFO
+  loggers:
+    com.flipkart.fde.decision.store.service: INFO
+    org.hibernate.SQL: INFO
+    org.hibernate.type.descriptor.sql: trace
+
+  appenders:
+    - type: console
+      timeZone: IST
+      logFormat: "%-5level[%date][%thread][%logger{0}] %message%n"
+
+    #Service Logs
+    - type: file
+      threshold: INFO
+      currentLogFilename: /var/log/flipkart/hello-world/service.log
+      archive: true
+      archivedLogFilenamePattern: /var/log/flipkart/hello-world/service-%d{yyyy-MM-dd}-%i.log.gz
+      archivedFileCount: 10
+      timeZone: IST
+      #logFormat: "[%-5level][%date][%thread][%logger{0}] - %m%n%rEx%n"
+      logFormat: "[%d{ISO8601}] [%5p] [%X{loggingId}] - [%t] - [%c] - %m%n%rEx%n"
+      maxFileSize: 500MB
+
+
+    #Exception Logs
+    - type: file
+      threshold: ERROR
+      currentLogFilename: /var/log/flipkart/hello-world/exception.log
+      archive: true
+      archivedLogFilenamePattern: /var/log/flipkart/hello-world/exception-%d{yyyy-MM-dd}-%i.log.gz
+      archivedFileCount: 10
+      timeZone: IST
+      #logFormat: "[%-5level][%date][%thread][%logger{0}] - %m%n%rEx%n"
+      logFormat: "[%d{ISO8601}] [%5p] [%logger{0}] - [%t] - [%c] - %m%n%rEx%n"
+      maxFileSize: 500MB
+
+swagger:
+  resourcePackage: com.shubham.goyal.learning.dropwizard.resources
+  schemes: [http]
+  enabled: true
+
+# Database settings.
+database:
+  # the name of the JDBC driver, mysql in our case
+  driverClass: com.mysql.jdbc.Driver
+  # the username
+  user: root
+  # the password
+  password: abcd1234
+  # the JDBC URL; the database is called DWGettingStarted
+  url: jdbc:mysql://localhost:3306/helloworld?useSSL=false
+  properties:
+    hibernate.dialect: org.hibernate.dialect.MySQLInnoDBDialect
+    hibernate.show_sql: true
+    hibernate.jdbc.batch_size: 25
+    hibernate.order_inserts: true
+    hibernate.order_updates: true
+    hibernate.jdbc.batch_versioned_data: true
+    hibernate.connection.autocommit: false
+    hibernate.id.new_generator_mappings: false
+    hibernate.format_sql: true
+    hibernate.use_sql_comments: true
