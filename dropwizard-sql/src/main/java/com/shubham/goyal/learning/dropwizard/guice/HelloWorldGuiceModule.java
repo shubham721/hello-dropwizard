@@ -26,6 +26,7 @@ public class HelloWorldGuiceModule extends AbstractModule {
         bind(HelloWorldService.class).to(HelloWorldServiceImpl.class).in(Singleton.class);
         bind(StudentRepostitory.class).to(StudentRepositoryImpl.class).in(Singleton.class);
         bind(ServiceToDalMapper.class).to(ServiceToDalMapperImpl.class);
+        install(new MapBinderExperimentGuiceModule());
     }
 
     @Provides
